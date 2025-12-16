@@ -205,6 +205,7 @@ def load_motion_data(
 
     if task_type == "robot_only":
         if data_format == "lafan":
+        # if data_format == "lafan" or data_format == "lafan_only_arms":
             npy_path = data_path / f"{task_name}.npy"
             if not npy_path.exists():
                 raise FileNotFoundError(f"LAFAN data file not found: {npy_path}")
@@ -395,6 +396,7 @@ def _compute_q_init_base(
     """
     if task_type == "robot_only":
         if data_format == "lafan":
+        # if data_format == "lafan" or data_format == "lafan_only_arms":
             spine_joint_idx = constants.DEMO_JOINTS.index("Spine1")
             human_quat_init = estimate_human_orientation(human_joints, constants.DEMO_JOINTS)
             # MuJoCo order: pos first, then quat

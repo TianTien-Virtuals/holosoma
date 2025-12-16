@@ -106,11 +106,44 @@ fi
 
 # Step 1: Run retargeting
 echo "Running retargeting..."
-python examples/robot_retarget.py --data_path demo_data/lafan --task-type robot_only --task-name dance2_subject1 --data_format lafan --task-config.ground-range -10 10 --save_dir demo_results/g1/robot_only/lafan --retargeter.foot-sticking-tolerance 0.02
+python examples/robot_retarget.py \
+    --data_path demo_data/lafan \
+    --task-type robot_only \
+    --task-name aiming2_subject5_arms_only \
+    --data_format lafan \
+    --task-config.ground-range -10 10 \
+    --save_dir demo_results/g1/robot_only/lafan \
+    --retargeter.foot-sticking-tolerance 0.02 \
+    --retargeter.visualize \
+    # --retargeter.q-a-init-idx 12 \
+# Only do arms
+# python examples/robot_retarget.py \
+#     --data_path demo_data/lafan \
+#     --task-type robot_only \
+#     --task-name dance2_subject1 \
+#     --data_format lafan_only_arms \
+#     --task-config.ground-range -10 10 \
+#     --save_dir demo_results/g1/robot_only/lafan_only_arms \
+#     --retargeter.q-a-init-idx 15 \
+#     --retargeter.foot-sticking-tolerance 0.001 \
+#     --retargeter.visualize
 
 # Step 2: Run data conversion
 echo "Running data conversion..."
-python data_conversion/convert_data_format_mj.py --input_file ./demo_results/g1/robot_only/lafan/dance2_subject1.npz --output_fps 50 --output_name converted_res/robot_only/dance2_subject1_mj_fps50.npz --data_format lafan --object_name "ground" --once
+python data_conversion/convert_data_format_mj.py \
+    --input_file ./demo_results/g1/robot_only/lafan/aiming2_subject5_arms_only.npz \
+    --output_fps 50 \
+    --output_name converted_res/robot_only/aiming2_subject5_arms_only_mj_fps50.npz \
+    --data_format lafan \
+    --object_name "ground" \
+    --once
+# python data_conversion/convert_data_format_mj.py \
+#     --input_file ./demo_results/g1/robot_only/lafan_only_arms/dance2_subject1.npz \
+#     --output_fps 50 \
+#     --output_name converted_res/robot_only/dance2_subject1_only_arms_mj_fps50.npz \
+#     --data_format lafan_only_arms \
+#     --object_name "ground" \
+#     --once
 
 # Step 3: Source IsaacSim setup script (for whole-body tracking training)
 echo "Sourcing IsaacSim setup..."
@@ -119,10 +152,13 @@ source "$PROJECT_ROOT/scripts/source_isaacsim_setup.sh"
 
 # Step 4: Run whole-body tracking training
 echo "Running whole-body tracking training..."
-CONVERTED_FILE="$PROJECT_ROOT/src/holosoma_retargeting/converted_res/robot_only/dance2_subject1_mj_fps50.npz"
+CONVERTED_FILE="$PROJECT_ROOT/src/holosoma_retargeting/converted_res/robot_only/aiming2_subject5_arms_only_mj_fps50.npz"
+# CONVERTED_FILE="$PROJECT_ROOT/src/holosoma_retargeting/converted_res/robot_only/dance2_subject1_only_arms_mj_fps50.npz"
 python src/holosoma/holosoma/train_agent.py \
     exp:g1-29dof-wbt \
     logger:wandb \
+    --training.num-envs=2048 \
+    --algo.config.num-learning-iterations=20000 \
     --command.setup_terms.motion_command.params.motion_config.motion_file=$CONVERTED_FILE
 
 echo "Done!"

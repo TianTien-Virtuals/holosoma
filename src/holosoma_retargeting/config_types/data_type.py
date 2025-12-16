@@ -186,6 +186,23 @@ JOINTS_MAPPINGS = {
         "LeftHand": "left_rubber_hand_link",
         "RightHand": "right_rubber_hand_link",
     },
+    # ("lafan_only_arms", "g1"): {
+    #     # "Spine1": "pelvis_contour_link",
+    #     # "LeftUpLeg": "left_hip_pitch_link",
+    #     # "RightUpLeg": "right_hip_pitch_link",
+    #     # "LeftLeg": "left_knee_link",
+    #     # "RightLeg": "right_knee_link",
+    #     "LeftArm": "left_shoulder_roll_link",
+    #     "RightArm": "right_shoulder_roll_link",
+    #     "LeftForeArm": "left_elbow_link",
+    #     "RightForeArm": "right_elbow_link",
+    #     # "LeftFoot": "left_ankle_intermediate_1_link",
+    #     # "RightFoot": "right_ankle_intermediate_1_link",
+    #     # "LeftToeBase": "left_ankle_roll_sphere_5_link",
+    #     # "RightToeBase": "right_ankle_roll_sphere_5_link",
+    #     "LeftHand": "left_rubber_hand_link",
+    #     "RightHand": "right_rubber_hand_link",
+    # },
     ("lafan", "t1"): {
         "Spine1": "Trunk",
         "LeftUpLeg": "Hip_Pitch_Left",
@@ -293,6 +310,7 @@ JOINTS_MAPPINGS = {
 # Data format specific constants
 TOE_NAMES_BY_FORMAT = {
     "lafan": ["LeftToeBase", "RightToeBase"],
+    # "lafan_only_arms": ["LeftToeBase", "RightToeBase"],  # Same as lafan (needed for compatibility)
     "smplh": ["L_Toe", "R_Toe"],
     "mocap": ["LeftToeBase", "RightToeBase"],
     "smplx": ["L_Foot", "R_Foot"],
@@ -309,6 +327,9 @@ DATA_FORMAT_CONSTANTS: dict[str, FormatConstants] = {
     "lafan": {
         "default_scale_factor": 1.27 / 1.7,
     },
+    # "lafan_only_arms": {
+    #     "default_scale_factor": 1.27 / 1.7,  # Same as lafan
+    # },
     "mocap": {
         "default_human_height": 1.78,
     },
@@ -319,6 +340,7 @@ DATA_FORMAT_CONSTANTS: dict[str, FormatConstants] = {
 # No need to update any Literal types - DataFormat is now str with runtime validation
 DEMO_JOINTS_REGISTRY: dict[str, list[str]] = {
     "lafan": LAFAN_DEMO_JOINTS,
+    # "lafan_only_arms": LAFAN_DEMO_JOINTS,
     "smplh": SMPLH_DEMO_JOINTS,
     "mocap": MOCAP_DEMO_JOINTS,
     "smplx": SMPLX_DEMO_JOINTS,
