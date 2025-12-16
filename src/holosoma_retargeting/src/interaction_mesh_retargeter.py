@@ -128,9 +128,12 @@ class InteractionMeshRetargeter:
         self.nq = self.robot_model.nq
 
         self.q_a_init_idx = q_a_init_idx
+        #q_a_init_idx = 15 means starting from left shoulder
         self.q_a_indices = np.arange(7 + self.q_a_init_idx, 7 + self.task_constants.ROBOT_DOF)
+        #q_a_indices = [22 - 35]
 
         self.nq_a = len(self.q_a_indices)
+        #nq_a = 14
 
         # Create complete limits with floating base (-inf, inf) and actuated joint limits
         n_floating_base = 7
@@ -141,25 +144,44 @@ class InteractionMeshRetargeter:
         complete_lower_limits = np.concatenate(
             [-large_number * np.ones(n_floating_base), self.robot_model.jnt_range[[i for i, _ in actuated_joints], 0]]
         )
+        # 7 number of -1e6
         complete_upper_limits = np.concatenate(
             [large_number * np.ones(n_floating_base), self.robot_model.jnt_range[[i for i, _ in actuated_joints], 1]]
         )
+        # 7 number of 1e6
 
         self.q_a_lb = complete_lower_limits[self.q_a_indices]
         self.q_a_ub = complete_upper_limits[self.q_a_indices]
 
-        self.q_a_lb[np.array(list(self.task_constants.MANUAL_LB.keys())).astype(int)] = list(
-            self.task_constants.MANUAL_LB.values()
-        )
-        self.q_a_ub[np.array(list(self.task_constants.MANUAL_UB.keys())).astype(int)] = list(
-            self.task_constants.MANUAL_UB.values()
-        )
+        # # THIS IS SOME FIX FOR q_a_init_idx to work!
+        for abs_idx_str, value in self.task_constants.MANUAL_LB.items():
+            abs_idx = int(abs_idx_str)
+            if abs_idx in self.q_a_indices:
+                rel_idx = np.where(self.q_a_indices == abs_idx)[0][0]
+                self.q_a_lb[rel_idx] = int(value)
+        for abs_idx_str, value in self.task_constants.MANUAL_UB.items():
+            abs_idx = int(abs_idx_str)
+            if abs_idx in self.q_a_indices:
+                rel_idx = np.where(self.q_a_indices == abs_idx)[0][0]
+                self.q_a_ub[rel_idx] = int(value)
+
+        # self.q_a_lb[np.array(list(self.task_constants.MANUAL_LB.keys())).astype(int)] = list(
+        #     self.task_constants.MANUAL_LB.values()
+        # )
+        # self.q_a_ub[np.array(list(self.task_constants.MANUAL_UB.keys())).astype(int)] = list(
+        #     self.task_constants.MANUAL_UB.values()
+        # )
 
         # Prevent too much waist twist
         self.Q_diag = np.zeros(self.nq_a) * 1e-3
-        self.Q_diag[np.array(list(self.task_constants.MANUAL_COST.keys())).astype(int)] = list(
-            self.task_constants.MANUAL_COST.values()
-        )
+        # self.Q_diag[np.array(list(self.task_constants.MANUAL_COST.keys())).astype(int)] = list(
+        #     self.task_constants.MANUAL_COST.values()
+        # )
+        for abs_idx_str, value in self.task_constants.MANUAL_COST.items():
+            abs_idx = int(abs_idx_str)
+            if abs_idx in self.q_a_indices:
+                rel_idx = np.where(self.q_a_indices == abs_idx)[0][0]
+                self.Q_diag[rel_idx] = int(value)
 
         self.w_nominal_tracking_init = w_nominal_tracking_init
         self.nominal_tracking_tau = nominal_tracking_tau
@@ -321,7 +343,8 @@ class InteractionMeshRetargeter:
             q_locked_list = q_nominal_list
         else:
             q_locked_list = np.zeros((num_frames, self.nq))
-            q_locked_list[0, self.q_a_indices] = q_a_init
+            # q_locked_list[0, self.q_a_indices] = q_a_init
+            q_locked_list[0] = q_a_init
 
         q_locked_list[:, -7:] = object_poses_augmented
         q = np.copy(q_locked_list[0])
@@ -543,7 +566,9 @@ class InteractionMeshRetargeter:
         constraints = []
 
         # Linear equality
-        constraints += [cp.Constant(J_L[:, self.q_a_indices]) @ dqa - lap_var == -lap0_vec]
+        # constraints += [cp.Constant(J_L[:, self.q_a_indices]) @ dqa - lap_var == -lap0_vec]
+        # J_L is already subset to q_a_indices (from J_V), so use directly
+        constraints += [cp.Constant(J_L) @ dqa - lap_var == -lap0_vec]
 
         # Foot sticking
         if (self.q_a_init_idx < 12) and self.activate_foot_sticking:
