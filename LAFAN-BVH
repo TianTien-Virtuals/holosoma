@@ -1,0 +1,116 @@
+Frame 0 data (69 values total):
+
+# Indices 0-5: Hips (ROOT) - 6 channels
+# 0:  Hips Xposition (cm)
+# 1:  Hips Yposition (cm)
+# 2:  Hips Zposition (cm)
+# 3:  Hips Zrotation (degrees)
+# 4:  Hips Yrotation (degrees)
+# 5:  Hips Xrotation (degrees)
+
+# Indices 6-8: LeftUpLeg - 3 channels
+# 6:  LeftUpLeg Zrotation (degrees)
+# 7:  LeftUpLeg Yrotation (degrees)
+# 8:  LeftUpLeg Xrotation (degrees)
+
+# Indices 9-11: LeftLeg - 3 channels
+# 9:  LeftLeg Zrotation
+# 10: LeftLeg Yrotation
+# 11: LeftLeg Xrotation
+
+# Indices 12-14: LeftFoot - 3 channels
+# 12: LeftFoot Zrotation
+# 13: LeftFoot Yrotation
+# 14: LeftFoot Xrotation
+
+# Indices 15-17: LeftToe - 3 channels
+# 15: LeftToe Zrotation
+# 16: LeftToe Yrotation
+# 17: LeftToe Xrotation
+
+# Indices 18-20: RightUpLeg - 3 channels
+# 18: RightUpLeg Zrotation
+# 19: RightUpLeg Yrotation
+# 20: RightUpLeg Xrotation
+
+# Indices 21-23: RightLeg - 3 channels
+# 21: RightLeg Zrotation
+# 22: RightLeg Yrotation
+# 23: RightLeg Xrotation
+
+# Indices 24-26: RightFoot - 3 channels
+# 24: RightFoot Zrotation
+# 25: RightFoot Yrotation
+# 26: RightFoot Xrotation
+
+# Indices 27-29: RightToe - 3 channels
+# 27: RightToe Zrotation
+# 28: RightToe Yrotation
+# 29: RightToe Xrotation
+
+# Indices 30-32: Spine - 3 channels
+# 30: Spine Zrotation
+# 31: Spine Yrotation
+# 32: Spine Xrotation
+
+# Indices 33-35: Spine1 - 3 channels
+# 33: Spine1 Zrotation
+# 34: Spine1 Yrotation
+# 35: Spine1 Xrotation
+
+# Indices 36-38: Spine2 - 3 channels
+# 36: Spine2 Zrotation
+# 37: Spine2 Yrotation
+# 38: Spine2 Xrotation
+
+# Indices 39-41: Neck - 3 channels
+# 39: Neck Zrotation
+# 40: Neck Yrotation
+# 41: Neck Xrotation
+
+# Indices 42-44: Head - 3 channels
+# 42: Head Zrotation
+# 43: Head Yrotation
+# 44: Head Xrotation
+
+# Indices 45-47: LeftShoulder - 3 channels
+# 45: LeftShoulder Zrotation
+# 46: LeftShoulder Yrotation
+# 47: LeftShoulder Xrotation
+
+# Indices 48-50: LeftArm - 3 channels
+# 48: LeftArm Zrotation
+# 49: LeftArm Yrotation
+# 50: LeftArm Xrotation
+
+# Indices 51-53: LeftForeArm - 3 channels
+# 51: LeftForeArm Zrotation
+# 52: LeftForeArm Yrotation
+# 53: LeftForeArm Xrotation
+
+# Indices 54-56: LeftHand - 3 channels
+# 54: LeftHand Zrotation
+# 55: LeftHand Yrotation
+# 56: LeftHand Xrotation
+
+# Indices 57-59: RightShoulder - 3 channels
+# 57: RightShoulder Zrotation
+# 58: RightShoulder Yrotation
+# 59: RightShoulder Xrotation
+
+# Indices 60-62: RightArm - 3 channels
+# 60: RightArm Zrotation
+# 61: RightArm Yrotation
+# 62: RightArm Xrotation
+
+# Indices 63-65: RightForeArm - 3 channels
+# 63: RightForeArm Zrotation
+# 64: RightForeArm Yrotation
+# 65: RightForeArm Xrotation
+
+# Indices 66-68: RightHand - 3 channels
+# 66: RightHand Zrotation
+# 67: RightHand Yrotation
+# 68: RightHand Xrotation
+
+# Total: 69 values

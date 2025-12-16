@@ -1,0 +1,48 @@
+qpos = [
+    # Indices 0-6: Floating base (from <freejoint/> at line 49)
+    x, y, z,              # 0-2:  Pelvis position in world
+    qw, qx, qy, qz,       # 3-6:  Pelvis orientation (quaternion)
+    
+    # Indices 7-35: Actuated joints (29 DOFs, in XML order)
+    
+    # Left leg (6 joints):
+    left_hip_pitch,       # 7   (line 57)
+    left_hip_roll,        # 8   (line 62)
+    left_hip_yaw,         # 9   (line 67)
+    left_knee,            # 10  (line 72)
+    left_ankle_pitch,     # 11  (line 82)
+    left_ankle_roll,      # 12  (line 87)
+    
+    # Right leg (6 joints):
+    right_hip_pitch,      # 13  (line 132)
+    right_hip_roll,       # 14  (line 137)
+    right_hip_yaw,        # 15  (line 142)
+    right_knee,           # 16  (line 147)
+    right_ankle_pitch,    # 17  (line 158)
+    right_ankle_roll,     # 18  (line 163)
+    
+    # Waist (3 joints):
+    waist_yaw,            # 19  (line 203)
+    waist_roll,           # 20  (line 207)
+    waist_pitch,          # 21  (line 211)
+    
+    # Left arm (7 joints):
+    left_shoulder_pitch,  # 22  (line 227)
+    left_shoulder_roll,   # 23  (line 232)
+    left_shoulder_yaw,    # 24  (line 237)
+    left_elbow,           # 25  (line 242)
+    left_wrist_roll,      # 26  (line 247)
+    left_wrist_pitch,     # 27  (line 252)
+    left_wrist_yaw,       # 28  (line 257)
+    
+    # Right arm (7 joints):
+    right_shoulder_pitch, # 29  (line 291)
+    right_shoulder_roll,  # 30  (line 296)
+    right_shoulder_yaw,   # 31  (line 301)
+    right_elbow,          # 32  (line 306)
+    right_wrist_roll,     # 33  (line 311)
+    right_wrist_pitch,    # 34  (line 316)
+    right_wrist_yaw,      # 35  (line 321)
+]
+
+# Total: 36 elements (7 base + 29 joints)
